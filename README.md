@@ -5,6 +5,7 @@ A [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html) (pro
 ![Demo](https://github.com/woltapp/wolt-python-package-cookiecutter/raw/master/demo.gif)
 
 ## Example projects which use Wolt Python Package Cookiecutter
+
 * [jerry-git/pytest-split](https://github.com/jerry-git/pytest-split)
 
 ## Features
@@ -26,6 +27,18 @@ A [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html) (pro
 * Auto-generated API documentation from docstrings via [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings)
 * See the extensive list of [MkDocs plugins](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins) which can help you
  to tune the documentation to fit your project's needs
+
+#### Manual releases
+
+Manual Releases are done with the command line, e.g. incrementing patch:
+
+```bash
+poetry run kacl-cli release -t -c $(poetry version --dry-run  -s patch) -m
+# also push, of course:
+git push origin main --tags
+```
+
+this will update the changelog, commit it, and make a corresponding tag.
 
 #### Automated releases
 
