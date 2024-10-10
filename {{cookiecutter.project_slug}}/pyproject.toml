@@ -31,6 +31,8 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.10, <4.0"
+importlib-metadata = "^8.5.0"
+loguru = "^0.7.2"
 
 [tool.poetry.group.dev.dependencies]
 mkdocstrings = {version = ">=0.23", extras = ["python"]}
@@ -44,6 +46,8 @@ pytest-cov = "*"
 pytest-sugar = "^1.0.0"
 python-kacl = "*"
 ruff = ">=0.2.0"
+ipykernel = "^6.29.5"
+nbmake = ">=1.4.6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
@@ -95,6 +99,7 @@ addopts = """\
     --cov tests \
     --cov-report term-missing \
     --no-cov-on-fail \
+    --nbmake \
 """
 
 [tool.coverage.report]

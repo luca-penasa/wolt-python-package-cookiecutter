@@ -29,7 +29,7 @@ pip install {{ cookiecutter.project_slug }}
 * Clone this repository
 * Requirements:
   * [Poetry](https://python-poetry.org/)
-  * Python 3.8+
+  * Python 3.10+
 * Create a virtual environment and install the dependencies
 
 ```sh
@@ -53,7 +53,29 @@ pytest
 The documentation is automatically generated from the content of the [docs directory](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tree/master/docs) and from the docstrings
  of the public signatures of the source code. The documentation is updated and published as a [Github Pages page](https://pages.github.com/) automatically as part each release.
 
+
+
 ### Releasing
+
+#### Manual release
+
+Releases are done with the command, e.g. incrementing patch:
+
+```bash
+poetry run kacl-cli release -t -c $(poetry version --dry-run  -s patch) -m
+# also push, of course:
+git push origin main --tags
+```
+
+this will update the changelog, commit it, and make a corresponding tag.
+
+as the CI is not yet configured for publish on pypi it can be done by hand:
+
+```bash
+poetry publish --build
+```
+#### Automatic release - to be fixed
+
 
 Trigger the [Draft release workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/actions/workflows/draft_release.yml)
 (press _Run workflow_). This will update the changelog & version and create a GitHub release which is in _Draft_ state.
@@ -88,4 +110,4 @@ pre-commit run --all-files
 
 ---
 
-This project was generated using the [wolt-python-package-cookiecutter](https://github.com/woltapp/wolt-python-package-cookiecutter) template.
+This project was generated using [a fork](https://github.com/luca-penasa/wolt-python-package-cookiecutter) of the [wolt-python-package-cookiecutter](https://github.com/woltapp/wolt-python-package-cookiecutter) template.
