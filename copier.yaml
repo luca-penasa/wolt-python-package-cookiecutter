@@ -12,9 +12,9 @@
 
 _subdirectory: template
 
-_tasks:
-    # Strings get executed under system's default shell
-    - test "${PWD#'/tmp'}" = "$PWD" && git init
+# _tasks:
+#     # Strings get executed under system's default shell
+#     - test "${PWD#'/tmp'}" = "$PWD" && git init
     
     
 author_name:
