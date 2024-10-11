@@ -1,0 +1,48 @@
+
+# _exclude:
+#     - slugify
+#     - README.md
+#     - LICENSE
+#     - cookiecutter.json
+#     - .git
+#     - .github
+#     - .gitignore
+#     - .pre-commit-config.yaml
+#     - tests
+
+_subdirectory: template
+
+_tasks:
+    # Strings get executed under system's default shell
+    - test "${PWD#'/tmp'}" = "$PWD" && git init
+    
+    
+author_name:
+    type: str
+    help: Author Name
+
+author_email:
+    type: str
+    help: "Your email address (eq. you@example.com)"
+    default: "{{ author_name | lower|  replace(' ', '.') }}@gmail.com"
+
+github_username:
+    type: str
+    help: Github username or group name
+    default: "{{ author_name | lower|  replace(' ', '-') }}"
+
+project_name:
+    type: str
+    help: "Name of the project (will be shown e.g. as the title in the readme)"
+
+project_url_slug:
+    type: str
+    default: "{% from 'slugify.jinja' import slugify %}{{ slugify(project_name) }}"
+    
+module_name:
+    type: str
+    default: "{% from 'slugify.jinja' import slugify %}{{ slugify(project_name) | replace('-', '_') }}"
+
+project_short_desription:
+    type: str
+    default: "<Project Description>"

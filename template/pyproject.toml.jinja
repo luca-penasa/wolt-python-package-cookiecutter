@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "{{ cookiecutter.project_slug }}"
+name = "{{ project_url_slug }}"
 version = "0.0.0"
-description = "{{ cookiecutter.project_short_description }}"
-authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
+description = "{{ project_short_description }}"
+authors = ["{{ author_name }} <{{ author_email }}>"]
 license = "MIT"
 readme = "README.md"
 
-documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}"
-homepage = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}"
-repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+documentation = "https://{{ github_username }}.github.io/{{ project_url_slug }}"
+homepage = "https://{{ github_username }}.github.io/{{ project_url_slug }}"
+repository = "https://github.com/{{ github_username }}/{{ project_url_slug }}"
 
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -23,7 +23,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-packages = [{ include = "{{ cookiecutter.package_name }}", from = "src" }]
+packages = [{ include = "{{ module_name }}", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10, <4.0"
@@ -91,7 +91,7 @@ classmethod-decorators = [
 
 [tool.pytest.ini_options]
 addopts = """\
-    --cov {{ cookiecutter.package_name }} \
+    --cov {{ module_name }} \
     --cov tests \
     --cov-report term-missing \
     --no-cov-on-fail \

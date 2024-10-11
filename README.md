@@ -1,21 +1,16 @@
-# Wolt Python Package Cookiecutter
+# (Fork of) Wolt Python Package Cookiecutter
 
-A [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/README.html) (project template) for rapidly developing new open source Python packages. Best practices with all the modern bells and whistles included.
+A copier template for rapidly developing new open source Python packages. Best practices with all the modern bells and whistles included.
 
-![Demo](https://github.com/woltapp/wolt-python-package-cookiecutter/raw/master/demo.gif)
-
-## Example projects which use Wolt Python Package Cookiecutter
-
-* [jerry-git/pytest-split](https://github.com/jerry-git/pytest-split)
 
 ## Features
 
-#### Automatic updates to the projects generated from this cookiecutter
+#### [WIP] Automatic updates to the prroject template
 
 * Powered by [cruft](https://cruft.github.io/cruft/)
 * Keep your project up-to-date with best practices
 
-#### Continuous integration
+#### [WIP] Continuous integration
 
 * Powered by [Github Actions](https://github.com/features/actions)
 * Testing against multiple different versions
