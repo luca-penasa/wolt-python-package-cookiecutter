@@ -85,6 +85,13 @@ Find the draft release from the
  a release is published, it'll trigger [release](https://github.com/{{ github_username }}/{{ project_url_slug }}/blob/master/.github/workflows/release.yml) workflow which creates PyPI
  release and deploys updated documentation.
 
+### Updating with copier
+
+To update the skeleton of the project using copier:
+```sh
+ pipx run copier update --defaults
+```
+
 ### Pre-commit
 
 Pre-commit hooks run all the auto-formatting (`ruff format`), linters (e.g. `ruff` and `mypy`), and other quality
