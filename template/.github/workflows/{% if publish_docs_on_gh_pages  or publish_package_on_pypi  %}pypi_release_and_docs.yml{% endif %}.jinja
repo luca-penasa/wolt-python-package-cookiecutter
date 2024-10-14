@@ -6,6 +6,7 @@ on:
       - 'v*' 
 
 jobs:
+  {% if publish_package_on_pypi %}
   publish-to-pypi:
     runs-on: ubuntu-latest
     steps:
@@ -13,14 +14,20 @@ jobs:
       - uses: ./.github/actions/python-poetry-env
       - name: Publish to PyPI
         run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry config pypi-token.pypi {% raw %}${{ secrets.PYPI_TOKEN }} {%endraw%}
           poetry publish --build --no-interaction
 
+  {% endif %}
+  {% if publish_docs_on_gh_pages %}
   deploy-docs:
     runs-on: ubuntu-latest
+      {% if publish_package_on_pypi %}
     needs: publish-to-pypi  # Ensure this job runs only after publish-to-pypi succeeds
+      {% endif %}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/python-poetry-env
       - name: Deploy docs
         run: poetry run mkdocs gh-deploy --force
+
+  {% endif %}

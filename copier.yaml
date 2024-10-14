@@ -1,6 +1,9 @@
 
-# _exclude:
-#     - slugify
+_exclude:
+    - template/.github/cookiecutter.yml
+    - template/.github/release.yml
+    - template/.github/draft_release.yml
+    
 #     - README.md
 #     - LICENSE
 #     - cookiecutter.json
@@ -46,3 +49,11 @@ module_name:
 project_short_desription:
     type: str
     default: "<Project Description>"
+
+publish_docs_on_gh_pages:
+    type: bool
+    default: False
+
+publish_package_on_pypi:
+    type: bool
+    default: False
