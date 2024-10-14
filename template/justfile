@@ -30,3 +30,7 @@ release-changelog version:
 clean:
     @echo "Cleaning..."
     rm -rf __pycache__ .pytest_cache
+
+@audit:
+  poetry run pip-audit
+  poetry run deptry -- src tests
