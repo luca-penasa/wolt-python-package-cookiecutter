@@ -6,7 +6,9 @@ __version__ = importlib.metadata.version("{{ module_name }}")
 
 log.disable("{{ module_name }}")
 
-def log_enable(level="INFO", mod="{{ module_name }}", remove_handlers=True):
+def log_enable(
+    level: str = "INFO", mod: str = "{{ module_name }}", remove_handlers: bool = True
+) -> None:
     """Enable logging for a given module at specific level, by default it operates on the whole module."""
     if remove_handlers:
         log.remove()
@@ -14,11 +16,11 @@ def log_enable(level="INFO", mod="{{ module_name }}", remove_handlers=True):
     log.add(sys.stderr, level=level)
 
 
-def log_enable_debug():
+def log_enable_debug() -> None:
     """Enable debug logging for a given module, by default it operates on the whole module."""
     log_enable(level="DEBUG")
 
 
-def log_disable(mod="{{ module_name }}"):
+def log_disable(mod: str = "{{ module_name }}") -> None:
     """Totally disable logging from this module, by default it operates on the whole module."""
     log.disable(mod)
