@@ -1,3 +1,24 @@
 import importlib
+from loguru import logger as log
 
 __version__ = importlib.metadata.version("{{ module_name }}")
+
+
+log.disable("{{ module_name }}")
+
+def log_enable(level="INFO", mod="{{ module_name }}", remove_handlers=True):
+    """Enable logging for a given module at specific level, by default it operates on the whole module."""
+    if remove_handlers:
+        log.remove()
+    log.enable(mod)
+    log.add(sys.stderr, level=level)
+
+
+def log_enable_debug():
+    """Enable debug logging for a given module, by default it operates on the whole module."""
+    log_enable(level="DEBUG")
+
+
+def log_disable(mod="{{ module_name }}"):
+    """Totally disable logging from this module, by default it operates on the whole module."""
+    log.disable(mod)
