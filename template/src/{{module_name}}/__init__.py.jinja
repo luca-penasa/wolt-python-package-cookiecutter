@@ -1,9 +1,12 @@
-import importlib
 import sys
 
 from loguru import logger as log
 
-__version__ = importlib.metadata.version("{{ module_name }}")
+import importlib.metadata as metadata
+
+
+
+__version__ = metadata.version("{{ module_name }}")
 
 log.disable("{{ module_name }}")
 
