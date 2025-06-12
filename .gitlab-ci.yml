@@ -1,0 +1,74 @@
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
+
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python/tags/
+image: python:3.10 # also latest would be ok (they ship it with 3.9 also)
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  UV_VERSION: 0.5
+  PYTHON_VERSION: 3.12
+  BASE_LAYER: bookworm-slim
+  # GitLab CI creates a separate mountpoint for the build directory,
+  # so we need to copy instead of using hard links.
+  UV_LINK_MODE: copy
+
+# Pip's cache doesn't store the python packages
+# https://pip.pypa.io/en/stable/topics/caching/
+#
+# If you want to also cache the installed packages, you have to install
+# them in a virtualenv and cache it as well.
+
+stages:
+  - tests
+  # - package
+  - pages
+
+# publish_package:
+#   stage: package
+#   image: image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+#   only:
+#     - tags
+
+#   script:
+#     - pip install poetry
+#     - poetry build
+#     - poetry config repositories.gitlab "https://www.ict.inaf.it/gitlab/api/v4/projects/$CI_PROJECT_ID/packages/pypi"
+#     - poetry config http-basic.gitlab gitlab-ci-token "$CI_JOB_TOKEN"
+#     - poetry publish --repository gitlab
+
+test-3.10:
+  stage: tests
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  script:
+    - uv run pytest
+      --cov-report xml:coverage.xml
+      --junitxml=report.xml
+
+  coverage: '/^TOTAL\s+\d+\s+\d+\s+(\d+\%)$/'
+  artifacts:
+    expire_in: 1 week
+    reports:
+      junit: report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+
+pages:
+  stage: pages
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  # variables:
+  #   ENABLE_PDF_EXPORT: 1
+
+  script:
+    - uv run mkdocs build --verbose
+    - mv site public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
